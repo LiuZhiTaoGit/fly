@@ -27,4 +27,12 @@ public interface EmployeeService {
      * @return
      */
     PageResult pagequery(EmployeePageQueryDTO employeePageQueryDTO);
+
+
+    /**
+     * 禁止或者开启状态
+     * @param status
+     * @param id
+     */
+    void startOrEnd(Integer status, Long id);
 }

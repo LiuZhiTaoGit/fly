@@ -99,7 +99,13 @@ public class EmployeeController {
 
         return Result.success(pr);
     }
+    @ApiOperation("启用或禁止状态")
+    @PostMapping("/status/{status}")
+    public Result startOrEnd(@PathVariable Integer status, Long id){
+        log.info("启用或者禁止使用{}{}",status,id);
+        employeeService.startOrEnd(status,id);
+        return Result.success();
 
-
+    }
 
 }
