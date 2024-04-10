@@ -28,7 +28,7 @@ public interface DishMapper {
     void insert(Dish dish);
 
     /**
-     * 菜品分页进行查询
+     * 菜品分页进行查询2
      * @param dishPageQueryDTO
      * @return
      */
