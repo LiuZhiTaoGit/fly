@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 /**
  * @author: liuzt
  * @date: 2024/4/2 - 04 - 02 - 10:13
- * @description: com.annotation  自定义注解类， 自动填充
+ * @description: com.annotation  自定义注解类， 自动填充  修改到今天的
  * @version: 1.0
  */
 @Target(ElementType.METHOD)
