@@ -83,11 +83,14 @@ public class EmployeeController {
      */
     @PostMapping
     @ApiOperation("添加员工")
-    public Result save(@RequestBody EmployeeDTO employeeDTO){
+    public Result save(@RequestBody EmployeeDTO employeeDTO){   //传入的是一个对象，用requestBody注解
         log.info("添加员工成功");
         employeeService.save(employeeDTO);
         return Result.success();
     }
+
+
+
 
 
     @ApiOperation("员工分页查询")
@@ -126,4 +129,20 @@ public class EmployeeController {
         employeeService.update(employeeDTO);
         return Result.success();
     }
+
+
+    /**
+     * 添加员工2
+     * @param employeeDTO
+     * @return
+     */
+    @PostMapping("/save2")
+    @ApiOperation(value = "添加员工——new")
+    public Result save2(@RequestBody EmployeeDTO employeeDTO){
+        log.info("新写的添加员工：");
+        employeeService.save2(employeeDTO);
+        return Result.success();
+
+    }
+
 }

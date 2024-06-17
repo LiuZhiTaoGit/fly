@@ -16,6 +16,7 @@ import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
+import com.sky.utils.JwtUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         //添加其他的的属性
         employee.setStatus(StatusConstant.ENABLE);//账号状态
         employee.setPassword(PasswordConstant.DEFAULT_PASSWORD);//mima
+
         //创始人、创世时间，修改人，修改时间
         //TODO 修改创建人id 和修改人id
 //        employee.setCreateUser(BaseContext.getCurrentId());
@@ -142,6 +144,34 @@ public class EmployeeServiceImpl implements EmployeeService {
 //        employee.setUpdateUser(BaseContext.getCurrentId());
 //        employee.setUpdateTime(LocalDateTime.now());
         employeeMapper.update(employee);
+
+    }
+
+    /**
+     * 新写的添加用户
+     * @param employeeDTO
+     */
+    @Override
+    public void save2(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setStatus(StatusConstant.ENABLE);
+        employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+//          需要获取当前的用户和修改的用户，不会，先设置为固定的
+//        employee.setCreateUser(10L);
+//        employee.setUpdateUser(10L);
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        employeeMapper.insert2(employee);
+
+
+
+
+
 
     }
 }

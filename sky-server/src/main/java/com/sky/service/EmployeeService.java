@@ -48,4 +48,10 @@ public interface EmployeeService {
      * @param employeeDTO
      */
     void update(EmployeeDTO employeeDTO);
+
+    /**
+     * 新写的添加员工
+     * @param employeeDTO
+     */
+    void save2(EmployeeDTO employeeDTO);
 }
