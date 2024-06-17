@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface EmployeeMapper {
 
@@ -57,4 +59,11 @@ public interface EmployeeMapper {
             "values" +
             "(#{name}, #{username}, #{password}, #{phone}, #{sex}, #{idNumber}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser}) ")
     void insert2(Employee employee);
+
+
+    @Select("select count(*) from employee")
+    Integer getCount();
+
+
+    List<Employee> getList(String name, Integer offset,Integer lim);
 }

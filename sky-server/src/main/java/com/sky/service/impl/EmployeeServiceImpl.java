@@ -17,6 +17,7 @@ import com.sky.mapper.EmployeeMapper;
 import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -171,6 +172,34 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 
+
+
+    }
+
+
+    /**
+     * 分页查询2
+     * @param employeePageQueryDTO
+     * @return
+     */
+    @Override
+    public PageResult pagequery2(EmployeePageQueryDTO employeePageQueryDTO) {
+
+//        //得到总数
+//        long total = employeeMapper.getCount();
+////        得到所有的记录
+//        Integer limit = employeePageQueryDTO.getPageSize();
+//        Integer Offset = (employeePageQueryDTO.getPage() - 1 ) * limit;
+//        List<Employee> list = employeeMapper.getList(employeePageQueryDTO.getName(),Offset,limit);
+//        PageResult pageResult = new PageResult(total, list);
+//        return pageResult;
+
+
+        PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+        long total1 = page.getTotal();
+        List<Employee> result = page.getResult();
+        return new PageResult(total1, result);
 
 
     }

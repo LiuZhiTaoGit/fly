@@ -13,6 +13,19 @@
         order by create_time desc
     </select>
 
+
+
+    <select id="getList" resultType="com.sky.entity.Employee">
+        select * from employee
+        <where>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+        limit #{offset},#{lim}
+    </select>
+
+
     <update id="update" parameterType="com.sky.entity.Employee">
         update employee
         <set>

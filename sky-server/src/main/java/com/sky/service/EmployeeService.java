@@ -5,6 +5,7 @@ import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.result.PageResult;
+import com.sky.result.Result;
 
 public interface EmployeeService {
 
@@ -54,4 +55,11 @@ public interface EmployeeService {
      * @param employeeDTO
      */
     void save2(EmployeeDTO employeeDTO);
+
+    /**
+     * 分页查询2
+     * @param employeePageQueryDTO
+     * @return
+     */
+    PageResult pagequery2(EmployeePageQueryDTO employeePageQueryDTO);
 }

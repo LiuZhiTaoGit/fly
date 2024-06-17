@@ -142,7 +142,17 @@ public class EmployeeController {
         log.info("新写的添加员工：");
         employeeService.save2(employeeDTO);
         return Result.success();
+    }
+
+
+    @GetMapping("/page2")
+    @ApiOperation(value = "分页查询2")
+    public Result<PageResult> page2(EmployeePageQueryDTO employeePageQueryDTO){//数据格式不是json的，不用加resuestbosy了
+        log.info("分页查询2——--");
+        PageResult pageResult = employeeService.pagequery2(employeePageQueryDTO);
+        return Result.success(pageResult);
 
     }
+
 
 }
