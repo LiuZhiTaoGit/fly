@@ -166,14 +166,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 //        employee.setUpdateUser(10L);
         employee.setCreateUser(BaseContext.getCurrentId());
         employee.setUpdateUser(BaseContext.getCurrentId());
-
         employeeMapper.insert2(employee);
-
-
-
-
-
-
     }
 
 
@@ -202,5 +195,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total1, result);
 
 
+    }
+
+    @Override
+    public void startOrEnd2(Integer status,Long id) {
+        Employee employee = new Employee();
+        employee.setId(id);
+        employee.setStatus(status);
+        employeeMapper.update2(employee);
     }
 }

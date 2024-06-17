@@ -66,4 +66,7 @@ public interface EmployeeMapper {
 
 
     List<Employee> getList(String name, Integer offset,Integer lim);
+
+
+    void update2(Employee employee);
 }
