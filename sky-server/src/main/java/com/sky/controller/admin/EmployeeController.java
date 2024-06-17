@@ -165,5 +165,23 @@ public class EmployeeController {
     }
 
 
+    @GetMapping("/2/{id}")
+    @ApiOperation(value = "根据id进行查询2")
+    public Result<Employee> selectById2(@PathVariable Long id){
+        log.info("根据id进行查询:{}",id);
+        Employee employee = employeeService.selectById2(id);
+        return Result.success(employee);
+    }
+
+
+    @PutMapping("/2")
+    @ApiOperation(value = "编辑员工信息2")
+    public Result update2(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息2：");
+        employeeService.update2(employeeDTO);
+        return Result.success();
+    }
+
+
 
 }

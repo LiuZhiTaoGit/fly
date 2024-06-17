@@ -37,6 +37,7 @@ public class DishController {
         dishService.saveWithFlavor(dishDTO);
         return Result.success();
     }
+
     @ApiOperation("分页查询")
     @GetMapping("/page")
     public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO){  //这个不用添加requestBody,因为使用的是query方式，在地址栏中使用key=value方式

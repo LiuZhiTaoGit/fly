@@ -1,5 +1,6 @@
 package com.sky.controller.admin;
 
+import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
@@ -9,8 +10,12 @@ import com.sky.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -100,4 +105,47 @@ public class CategoryController {
         List<Category> list = categoryService.list(type);
         return Result.success(list);
     }
+
+
+    @PostMapping("/2")
+    @ApiOperation(value = "新增分类2")
+    public Result save2(@RequestBody CategoryDTO categoryDTO){
+        categoryService.save2(categoryDTO);
+        return Result.success();
+    }
+
+    @DeleteMapping("/2")
+    @ApiOperation(value = "删除分类2")
+    public Result deleteById2(Long id){
+        categoryService.deleteById2(id);
+        return Result.success();
+    }
+
+    @PutMapping("/2")
+    @ApiOperation(value = "修改分类2")
+    public Result update2(@RequestBody CategoryDTO categoryDTO){
+        categoryService.update2(categoryDTO);
+        return Result.success();
+    }
+
+
+    @GetMapping("/page2")
+    @ApiOperation(value = "分页2")
+    public Result<PageResult> page2(CategoryPageQueryDTO categoryPageQueryDTO){
+        PageResult pageResult = categoryService.pageQuery2(categoryPageQueryDTO);
+        return Result.success(pageResult);
+    }
+
+
+    @PostMapping("/status2/{status}")
+    @ApiOperation("启动或者禁用分类2")
+    public Result startOrStop2(@PathVariable Integer status,Long id){
+        categoryService.startOrStop2(status, id);
+
+        return Result.success();
+    }
+
+
+
+
 }

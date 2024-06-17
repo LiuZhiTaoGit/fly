@@ -129,4 +129,49 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> list(Integer type) {
         return categoryMapper.list(type);
     }
+
+
+    @Override
+    public void save2(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        BeanUtils.copyProperties(categoryDTO, category);
+        category.setCreateTime(LocalDateTime.now());
+        category.setCreateUser(BaseContext.getCurrentId());
+        category.setStatus(StatusConstant.DISABLE);
+        categoryMapper.insert2(category);
+    }
+
+
+    @Override
+    public void deleteById2(Long id) {
+        categoryMapper.deleteById2(id);
+    }
+
+    @Override
+    public void update2(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        BeanUtils.copyProperties(categoryDTO, category);
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setUpdateUser(BaseContext.getCurrentId());
+        categoryMapper.update(category);
+    }
+
+    @Override
+    public PageResult pageQuery2(CategoryPageQueryDTO categoryPageQueryDTO) {
+
+        PageHelper.startPage(categoryPageQueryDTO.getPage(),categoryPageQueryDTO.getPageSize());
+        Page<Category> page = categoryMapper.pageQuery2(categoryPageQueryDTO);
+        return new PageResult(page.getTotal(), page.getResult());
+
+    }
+
+
+    @Override
+    public void startOrStop2(Integer status, Long id) {
+        Category category = new Category();
+        category.setId(id);
+        category.setStatus(status);
+        categoryMapper.update(category);
+    }
 }
+

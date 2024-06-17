@@ -68,4 +68,9 @@ public interface EmployeeService {
      * @param status
      */
     void startOrEnd2(Integer status,Long id);
+
+    Employee selectById2(Long id);
+
+    void update2(EmployeeDTO employeeDTO);
+
 }

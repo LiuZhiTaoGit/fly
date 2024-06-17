@@ -45,6 +45,14 @@ public class AutoFillAspect {
     public void autoinfo(JoinPoint joinPoint){   //传入连接点
         log.info("开始进行公共字段自动填充");
 
+//        获取当前被拦截的方法上的数据库操作类型
+//        获取到当前被拦截的方法的参数 ---  实体对象
+//        准备赋值的数据
+//        根据当前不同的操作类型，为对应的属性通过反射来赋值
+
+
+
+
         //需要完成三件事
         //第一： 获得方法的签名对象
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();

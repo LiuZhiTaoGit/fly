@@ -46,4 +46,20 @@ public interface CategoryService {
      * @return
      */
     List<Category> list(Integer type);
+
+    /**
+     * 新增分类2
+     * @param categoryDTO
+     */
+    void save2(CategoryDTO categoryDTO);
+
+    void deleteById2(Long id);
+
+
+    void update2(CategoryDTO categoryDTO);
+
+    PageResult pageQuery2(CategoryPageQueryDTO categoryPageQueryDTO);
+
+    void startOrStop2(Integer status, Long id);
+
 }

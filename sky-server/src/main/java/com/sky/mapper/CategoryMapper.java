@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.annotation.AutoFile;
 import com.sky.enumeration.OperationType;
 import com.sky.dto.CategoryPageQueryDTO;
@@ -50,4 +51,17 @@ public interface CategoryMapper {
      * @return
      */
     List<Category> list(Integer type);
+
+
+    @Insert("insert into category(type, name, sort, status, create_time, update_time, create_user, update_user) " +
+            "VALUES" +
+            "(#{type}, #{name}, #{sort}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
+    void insert2(Category category);
+
+
+    @Delete("delete from category where id = #{id}")
+    void deleteById2(Long id);
+
+    Page<Category> pageQuery2(CategoryPageQueryDTO categoryPageQueryDTO);
+
 }
