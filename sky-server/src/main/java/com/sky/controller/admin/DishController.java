@@ -47,6 +47,18 @@ public class DishController {
     }
 
 
+    @PostMapping("/post2")
+    @ApiOperation(value = "添加餐品2")
+    public Result save2(@RequestBody DishDTO dishDTO){
+        dishService.saveWithFlavor2(dishDTO);
+
+        return Result.success();
+    }
+
+
+
+
+
 
 
 

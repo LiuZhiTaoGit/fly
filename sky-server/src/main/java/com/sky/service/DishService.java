@@ -23,4 +23,7 @@ public interface DishService {
      * @return
      */
     PageResult pagequery(DishPageQueryDTO dishPageQueryDTO);
+
+
+    void saveWithFlavor2(DishDTO dishDTO);
 }

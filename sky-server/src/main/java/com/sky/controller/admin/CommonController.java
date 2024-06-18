@@ -32,14 +32,11 @@ public class CommonController {
 
     @PostMapping("/upload")
     @ApiOperation("文件上传")
-    public Result<String> upload(MultipartFile file){
+    public Result<String> upload(MultipartFile file){  //文件上传的  file是和前端对应的
         log.info("上传开始！");
-
         try {
-
 //        初始化文件名
             String originalFilename = file.getOriginalFilename();
-
 //        截取初始文件名的后缀   ddjkf.png
             String substring = originalFilename.substring(originalFilename.lastIndexOf("."));
 //        构造新文件的名称
@@ -51,7 +48,32 @@ public class CommonController {
         } catch (IOException e) {
             log.error("文件上传失败：{}",e);
         }
-
         return Result.error(MessageConstant.UPLOAD_FAILED);
     }
+
+    @PostMapping("/upload2")
+    @ApiOperation(value = "上传文件2")
+    public Result upload2(MultipartFile file){
+        try {
+        //初始化文件名
+        String originalFilename = file.getOriginalFilename();
+//        截取初始化文件名的后缀
+        String substring = originalFilename.substring(originalFilename.lastIndexOf("."));
+
+//        利用UUID构建新的文件名后缀
+        String new_name = UUID.randomUUID().toString() + substring;
+//                利用ailiOssUtil的upload构建新的文件目录
+
+            String filePath = aliOssUtil.upload(file.getBytes(), new_name);
+            return Result.success(filePath);
+        } catch (IOException e) {
+            log.info("文件上传失败：{}",e);
+        }
+        return Result.error(MessageConstant.UPLOAD_FAILED);
+    }
+
+
+
+
+
 }

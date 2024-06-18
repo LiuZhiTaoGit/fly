@@ -35,4 +35,6 @@ public interface DishMapper {
 
     Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
+    @AutoFile(OperationType.INSERT)
+    void insert2(Dish dish);
 }
