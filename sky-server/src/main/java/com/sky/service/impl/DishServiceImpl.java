@@ -54,7 +54,7 @@ public class DishServiceImpl implements DishService {
                 dishFlavor.setDishId(id);
                     }
             );
-            //批量插入
+            //批量插入d
             dishFlavorMapper.insertBatch(flavors);
         }
 
