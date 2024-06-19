@@ -38,22 +38,32 @@ public class DishController {
         return Result.success();
     }
 
-    @ApiOperation("分页查询")
-    @GetMapping("/page")
-    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO){  //这个不用添加requestBody,因为使用的是query方式，在地址栏中使用key=value方式
-        log.info("分页查询");
-        PageResult pageResult = dishService.pagequery(dishPageQueryDTO);
-        return Result.success(pageResult);
-    }
+//    @ApiOperation("分页查询")
+//    @GetMapping("/page")
+//    public Result<PageResult> page(DishPageQueryDTO dishPageQueryDTO){  //这个不用添加requestBody,因为使用的是query方式，在地址栏中使用key=value方式
+//        log.info("分页查询");
+//        PageResult pageResult = dishService.pagequery(dishPageQueryDTO);
+//        return Result.success(pageResult);
+//    }
 
 
     @PostMapping("/post2")
     @ApiOperation(value = "添加餐品2")
     public Result save2(@RequestBody DishDTO dishDTO){
         dishService.saveWithFlavor2(dishDTO);
-
         return Result.success();
     }
+
+
+    @GetMapping("/page")
+    @ApiOperation(value = "分页查询2")
+    public Result<PageResult> page2(DishPageQueryDTO dishPageQueryDTO){  //请求参数是query，不用requestboby
+        PageResult pageResult = dishService.pagequery2(dishPageQueryDTO);
+        return Result.success(pageResult);
+    }
+
+
+
 
 
 

@@ -26,4 +26,8 @@ public interface DishService {
 
 
     void saveWithFlavor2(DishDTO dishDTO);
+
+
+    PageResult pagequery2(DishPageQueryDTO dishPageQueryDTO);
+
 }

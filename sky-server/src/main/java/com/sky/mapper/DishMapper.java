@@ -1,5 +1,6 @@
 package com.sky.mapper;
 
+import com.alibaba.druid.sql.PagerUtils;
 import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFile;
 import com.sky.dto.DishPageQueryDTO;
@@ -37,4 +38,6 @@ public interface DishMapper {
 
     @AutoFile(OperationType.INSERT)
     void insert2(Dish dish);
+
+    Page<DishVO> pageQuery2(DishPageQueryDTO dishPageQueryDTO);
 }
