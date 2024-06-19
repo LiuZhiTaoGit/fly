@@ -4,6 +4,9 @@ import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.result.PageResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author: liuzt
  * @date: 2024/4/3 - 04 - 03 - 14:15
@@ -30,4 +33,9 @@ public interface DishService {
 
     PageResult pagequery2(DishPageQueryDTO dishPageQueryDTO);
 
+    /**
+     * 批量删除菜品
+     * @param ids
+     */
+    void remove(List<Long> ids);
 }

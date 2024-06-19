@@ -20,6 +20,7 @@
     </insert>
 
 
+
     <select id="pageQuery" resultType="com.sky.vo.DishVO">
         select d.*,c.name categoryName from dish as d left join category as c on d.category_id = c.id
         <where>
@@ -50,8 +51,5 @@
             </if>
         </where>
         order by create_time desc
-
-
-
     </select>
 </mapper>

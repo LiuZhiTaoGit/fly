@@ -11,6 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author: liuzt
  * @date: 2024/4/3 - 04 - 03 - 14:12
@@ -62,6 +66,15 @@ public class DishController {
         return Result.success(pageResult);
     }
 
+    @DeleteMapping()
+    @ApiOperation(value = "批量删除菜品")
+    public Result remove(@RequestParam List<Long> ids){  //这个注解的作用是  mvc框架自动解析这个字符串，可以把id都提取出来
+        log.info("批量删除菜品的ids是： {}",ids);
+        dishService.remove(ids);
+
+        return Result.success();
+
+    }
 
 
 
