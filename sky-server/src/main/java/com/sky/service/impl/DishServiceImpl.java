@@ -16,6 +16,7 @@ import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,8 @@ public class DishServiceImpl implements DishService {
 
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private SetmealMapper setmealMapper;
 
 
     /**
@@ -68,6 +71,32 @@ public class DishServiceImpl implements DishService {
         }
 
 
+    }
+
+
+    /**
+     * 条件查询菜品和口味
+     * @param dish
+     * @return
+     */
+
+    public List<DishVO> listWithFlavor(Dish dish) {
+        List<Dish> dishList = dishMapper.list(dish);
+
+        List<DishVO> dishVOList = new ArrayList<>();
+
+        for (Dish d : dishList) {
+            DishVO dishVO = new DishVO();
+            BeanUtils.copyProperties(d,dishVO);
+
+            //根据菜品id查询对应的口味
+            List<DishFlavor> flavors = dishFlavorMapper.getById(d.getId());
+
+            dishVO.setFlavors(flavors);
+            dishVOList.add(dishVO);
+        }
+
+        return dishVOList;
     }
 
     @Override
@@ -121,14 +150,72 @@ public class DishServiceImpl implements DishService {
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
 
-//        3 删除菜品
-        for (Long id : ids) {
-            dishMapper.deleteById(id);
-            //        4 删除口味
-            dishFlavorMapper.deleteById(id);
+//        3 删除菜品   --->这个是只删除一个菜品，需要重复执行sql语句，可以改用批量删除
+//        for (Long id : ids) {
+//            dishMapper.deleteById(id);
+//            //        4 删除口味
+//            dishFlavorMapper.deleteById(id);
+//        }
+
+
+
+//        批量删除
+        dishMapper.deleteByIds(ids);
+        dishFlavorMapper.deleteByIds(ids);
+    }
+
+
+    @Override
+    public void startOrEnd(Integer status, Long id) {
+        dishMapper.updateStatus(status, id);
+    }
+
+
+    @Transactional
+    @Override
+    public DishVO getById(Long id) {
+        Dish dish = dishMapper.getById(id);
+        List<DishFlavor> dishFlavor = dishFlavorMapper.getById(id);
+        DishVO dishVO = new DishVO();
+        BeanUtils.copyProperties(dish, dishVO);
+        dishVO.setFlavors(dishFlavor);
+        return dishVO;
+    }
+
+    @Transactional
+    @Override
+    public void update(DishDTO dishDTO) {
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+
+        dishMapper.updateDish(dish);
+
+        //还有可能要修改口味  --- > 先删除，后插入
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+//        dishFlavorMapper.updateFlavor(flavors);
+        dishFlavorMapper.deleteById(dishDTO.getId());
+//        dishFlavorMapper.insertBatch(flavors);
+        if(flavors != null && flavors.size() > 0){
+            flavors.forEach(dishFlavor -> {
+                        dishFlavor.setDishId(dishDTO.getId());
+                    }
+            );
+            //批量插入d
+            dishFlavorMapper.insertBatch(flavors);
         }
 
 
+    }
 
+
+    @Override
+    public List<Dish> list(Long categoryId) {
+        Dish dish = new Dish();
+        dish.setCategoryId(categoryId);
+        dish.setStatus(StatusConstant.ENABLE);
+
+        List<Dish> byCategoryId = dishMapper.getByCategoryId(dish);
+
+        return byCategoryId;
     }
 }

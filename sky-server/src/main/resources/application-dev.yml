@@ -11,3 +11,11 @@ sky:
     access-key-id: LTAI5tCSswYpNaayxZcKNUu6
     access-key-secret: 2tCZh3Fa7Og5qNkW9A6PIkHqMKSieW
     bucket-name: web-fly
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    database: 10
+  wechat:
+    appid: wxc558eed87b386209
+    secret: 741c538c6764d80f09e786ff16d4f1af

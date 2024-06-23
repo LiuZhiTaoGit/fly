@@ -2,9 +2,11 @@ package com.sky.controller.admin;
 
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -71,14 +73,42 @@ public class DishController {
     public Result remove(@RequestParam List<Long> ids){  //这个注解的作用是  mvc框架自动解析这个字符串，可以把id都提取出来
         log.info("批量删除菜品的ids是： {}",ids);
         dishService.remove(ids);
-
         return Result.success();
-
     }
 
 
+    @PostMapping("/status/{status}")
+    @ApiOperation(value = "菜品状态的修改")
+    public Result startOrEnd(@PathVariable Integer status, Long id){
+        log.info("更改菜品的状态，参数status:{}和id：{}", status, id);
+        dishService.startOrEnd(status,id);
+        return Result.success();
+    }
 
 
+    @ApiOperation(value = "根据id查询")
+    @GetMapping("/{id}")
+    public Result<DishVO> getById(@PathVariable Long id){
+        DishVO dish =dishService.getById(id);
+        return Result.success(dish);
+    }
+
+
+    @PutMapping
+    @ApiOperation(value = "更新数据")
+    public Result update(@RequestBody DishDTO dishDTO){
+        dishService.update(dishDTO);
+        return Result.success();
+    }
+
+
+    @GetMapping("/list")
+    @ApiOperation(value = "根据分类id查询菜品")
+    public Result<List<Dish>> list(Long categoryId){
+        List<Dish> dish = dishService.list(categoryId);
+        return Result.success(dish);
+
+    }
 
 
 
