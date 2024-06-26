@@ -33,6 +33,16 @@ public interface SetmealMapper {
     @AutoFile(OperationType.INSERT)
     void insert(Setmeal setmeal);
 
+
+    /**
+     * 根据id查询套餐
+     * @param id
+     * @return
+     */
+    @Select("select * from setmeal where id = #{id}")
+    Setmeal getById(Long id);
+
+
     Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
 
     @Select("select * from setmeal where id= #{id}")
